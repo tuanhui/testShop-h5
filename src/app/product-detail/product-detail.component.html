@@ -1,0 +1,22 @@
+<div class="content">
+    <img *ngFor="let url of imgUrls" src="{{url}}" style="width: 100%;">
+</div>
+<div class="tool-bar" *ngIf="product">
+    <div class="price">
+        <div class="real">￥{{product.itemPrice}}</div>
+        <div class="original" *ngIf="product.itemOriginalPrice >0 && product.itemOriginalPrice != product.itemPrice">
+            <span class="name">原价</span>
+            <span class="value">￥{{product.itemOriginalPrice}}</span>
+        </div>
+    </div>
+    <div class="add-cart" (click)="addCart()">
+        <img class="icon" src="./assets/imgs/ic_cart.png" ng-cloak />
+    </div>
+    <div class="to-buy" (click)="addOrder($event)">
+        提交订单
+    </div>
+</div>
+<div class="toast" *ngIf="addCartSuccess">
+    <i class="icon"></i>
+    <span class="text">已添加到购物车</span>
+</div>

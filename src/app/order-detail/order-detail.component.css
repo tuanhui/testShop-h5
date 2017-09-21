@@ -1,0 +1,198 @@
+.page {
+    background-color: rgb(240, 240, 243);
+    height: 100%;
+    flex: 1;
+  }
+  .order {
+    margin-bottom: 0.20rem;
+  }
+  .head {
+    display: flex;
+    height: 1.33rem;
+    flex-direction: row;
+    padding: 0 0.25rem 0 0.40rem;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+  }
+  .head .head-l {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .head .head-l .item {
+    display: flex;
+    font-size: 0.28rem;
+    line-height: 0.33rem;
+    color: #A2A2A2;
+    margin-bottom: 0.12rem;
+    flex-direction: row; 
+  }
+  .head .head-l .item .value.status {
+    color: #353535;
+  }
+  .head .head-l .item:last-child {
+    margin-bottom: 0;
+  }
+  .product-list {
+      margin-top: 0.02rem;
+      padding: 0.24rem 0.29rem 0 0.29rem;
+      background-color: #fff;
+      border-top: 0.5px solid rgb(240, 240, 243);
+  }
+  
+  .product-list .product-item {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0.28rem;
+  }
+  .product-list .product-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0.28rem;
+  }
+  
+  .order:last-child .product-list .product-item:last-child  {
+    padding-bottom: 0.46rem;
+  }
+  .product-list .product-item .pic {
+    border-radius: 0.08rem;
+    width: 2.00rem;
+    height: 1.50rem;
+  }
+  .product-list .product-item .info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 0.36rem;
+  }
+  .product-list .product-item .info .name {
+    font-size: 0.30rem;
+    color: #353535;
+    line-height: 0.42rem;
+    height: 0.42rem;
+    display: flex;
+    flex-direction: row;
+  }
+  .product-list .product-item .info .name .name-val {
+      flex: 1;
+      line-height: 0.42rem;
+      height: 0.42rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+  }
+  .product-list .product-item .info .name .name-count {
+    padding-left: 0.10rem;
+    line-height: 0.42rem;
+    height: 0.42rem;
+  }
+  .product-list .product-item .info .intro {
+    font-size: 0.26rem;
+    color: #B2B2B2;
+    line-height: 0.30rem;
+    margin-top: 0.04rem;
+  }
+  .product-list .product-item .info .price {
+      line-height: 0.50rem;
+      height: 0.50rem;
+      display: flex;
+      flex-direction: row;
+      margin-top: 0.10rem;
+  }
+  .product-list .product-item .info .price .value {
+    font-size: 0.42rem;
+    color: #409CE0;
+  }
+  .product-list .product-item .info .price .value::first-letter {
+    font-size: 0.30rem;
+  }
+  .row-price,
+  .row-distribution {
+    background-color: #fff;
+    margin-top: 0.20rem;
+    position: relative;
+    padding: 0.28rem 0.26rem 0.27rem 0.37rem;
+  }
+  .row-price .item,
+  .row-distribution .item {
+    margin-bottom: 0.20rem;
+    font-size: 0.28rem;
+    line-height: 0.33rem;
+    color: #A2A2A2;
+    display: flex;
+    flex-direction: row;
+  }
+  .row-price .item {
+    margin-bottom: 0.32rem;
+  }
+  .row-distribution .item:first-child {
+    margin-bottom: 0.34rem;
+  }
+  .row-distribution .item:first-child .name {
+    color: #353535;
+  }
+  .row-distribution .item:first-child .value {
+    color: #A2A2A2;
+    flex: 1;
+    text-align: right;
+  }
+  .row-price .item:last-child,
+  .row-distribution .item:last-child {
+    margin-bottom: 0;
+  }
+  .row-distribution .item .name {
+    min-width: 1.40rem;
+  }
+  .row-distribution .item .value {
+      line-height: 0.33rem;
+      font-size: 0.28rem;
+      color: #353535;
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+  }
+  .row-price .item .name {
+      flex: 1;
+  }
+  .row-price .item.total .name {
+    flex: none;
+  }
+  .row-price .item.total {
+     float: right;
+  } 
+  .row-price::after {
+    content: "020"; 
+    display: block; 
+    height: 0; 
+    clear: both; 
+    visibility: hidden; 
+  }
+  
+  .row-total {
+    border-top: 0.5px solid rgb(240, 240, 243);
+    display: flex;
+    height: 0.85rem;
+    justify-content: flex-end;
+    background-color: white;
+    line-height: 0.86rem;
+    padding-right: 0.26rem;
+  }
+  .row-total .name {
+    margin-right: 0.33rem;
+  }
+  .row-total .name {
+    font-size: 0.28rem;
+    color: #353535;
+  }
+  .row-total .value {
+    color: #409CE0;
+    font-size: 0.42rem;
+  }
+  .row-total .value::first-letter {
+    margin-right: 0.07rem;
+    font-size: 0.32rem;
+  }

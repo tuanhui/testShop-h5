@@ -1,0 +1,113 @@
+/* 底部共进条 */
+.tool-bar {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    height: 1.02rem;
+    line-height: 1.02rem;
+    position: fixed;
+    z-index: 99999;
+    background-color: #fff;
+    box-shadow: 0 -1px 0 0 rgba(0,0,0,0.10);
+    bottom: 0;
+    left: 0;
+  }
+  .tool-bar .price {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+  }
+  .tool-bar .price .real {
+    margin-left: 0.32rem;
+    font-family: PingFangSC-Medium;
+    font-size: 0.36rem;
+    color: #409CE0;
+  }
+  .tool-bar .price .real::first-letter {
+    font-size: 0.30rem;
+  }
+  
+  .tool-bar .price .original {
+     display: flex;
+     margin-left: 0.28rem;
+     line-height: 1.02rem;
+     flex-direction: row;
+  }
+  .tool-bar .price .original .name {
+    font-size: 0.24rem;
+    color: #B2B2B2;
+  }
+  .tool-bar .price .original .value {
+    font-size: 0.288rem;
+    color: #B2B2B2;
+
+    line-height: 1.02rem;
+    margin-left: 9rpx;
+    letter-spacing: -1rpx;
+  }
+  .tool-bar .price .original .value::first-letter {
+    font-size: 0.20rem;
+    margin-right: 0.02rem;
+  }
+  .add-cart {
+    width: 0.86rem;
+    height: 0.70rem;
+    background: #409CE0;
+    border-radius: 0.09rem;
+    position: relative;
+    margin: auto 0;
+  }
+  .add-cart .icon {
+    position: absolute;
+    width: 0.36rem;
+    height: 0.31rem;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); 
+  }
+  .to-buy {
+    margin: auto 0.20rem auto 0.17rem;
+    background: #409CE0;
+    border-radius: 0.09rem;
+    color: #fff;
+    font-size: 0.26rem;
+    width: 1.93rem;
+    height: 0.70rem;
+    line-height: 0.70rem;
+    text-align: center;
+  }
+  .add-cart:active,
+  .to-buy:active {
+    opacity: .7;
+  }
+  /* toast */
+  .toast {
+    position: fixed;
+    z-index: 5000;
+    width: 2.4rem;
+    height: 2.4rem;
+    left: 50%;
+    font-size: 0.26rem;
+    color: #fff;
+    top: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: translate(-50%, -50%);
+    opacity: 0.7;
+    background: #111111;
+    border-radius: 0.10rem;
+  }
+  .toast .icon {
+    display: inline-block;
+    width: 0.986rem;
+    height: 0.706rem;
+    background-image: url('../../assets/imgs/ic_ok.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: center center;
+  }
+  .toast .text {
+    margin-top: 0.404rem;
+  }

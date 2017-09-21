@@ -1,0 +1,19 @@
+<div class="page">
+    <div class="container">
+    <router-outlet></router-outlet>
+    </div>
+    <div class="bottom-bars" *ngIf="showTabs()">
+        <div class="item" (click)="change(0)">
+            <img [src]="imgs[0]" class="icon"/>
+            <div class="text">首页</div> 
+        </div>
+        <div class="item" (click)="change(1)">
+            <img [src]="imgs[1]" class="icon"/>
+            <div class="text">购物车</div>
+        </div>
+        <div class="item" (click)="change(2)">
+            <img [src]="imgs[2]" class="icon"/>
+            <div class="text">订单</div>
+        </div>
+    </div>
+</div>

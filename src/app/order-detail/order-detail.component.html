@@ -1,0 +1,64 @@
+<div class="page">
+    <div class="order">
+      <div class="head">
+          <div class="head-l">
+              <div class="item" *ngIf="order && order.orderStatus">
+                  <span class="name">状态：</span>
+                  <span class="value status">{{order.orderStatus == 1 ? '待发货' : (order.orderStatus == 2 ? '已发货' : '已签收')}}</span>
+              </div>
+              <div class="item">
+                  <span class="name">订单：</span>
+                  <span class="value">{{order.orderId}}</span>
+              </div>
+          </div>
+      </div>
+      <div class="product-list">
+          <div class="product-item" *ngFor="let product of products">
+              <img class="pic" src="{{product.itemImg}}"/>
+              <div class="info">
+                  <div class="name">
+                      <div class="name-val">{{product.itemName}}</div>
+                      <div class="name-count">x{{product.count}}</div>
+                  </div>
+                  <div class="intro">{{product.itemIntro}}</div>
+                  <div class="price">
+                    <div class="name"></div>
+                    <div class="value">￥{{product.itemPrice}}</div> 
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="row-distribution">
+          <div class="item">
+              <div class="name">配送方式：</div>
+              <div class="value">{{order.orderDistribution}}({{order.orderFreight == 0 ? '免运费' : order.orderFreight}})</div>
+          </div>
+          <div class="item">
+              <div class="name">收货地址：</div>
+              <div class="value">{{order.ownerAddr}}</div>
+          </div>
+          <div class="item">
+              <div class="name">收货人：</div>
+              <div class="value">{{order.orderOwner}} {{order.ownerPhone}}</div>
+          </div>
+          <div class="item">
+              <div class="name">发票信息：</div>
+              <div class="value">{{order.invoice ? (order.invoice.invoiceType == 0 ? '个人' : '企业') : '无'}}</div>
+          </div>
+      </div>
+      <div class="row-price">
+          <div class="item">
+              <div class="name">商品总额</div>
+              <div class="value">￥{{order.orderTotalPrice}}</div>
+          </div>
+          <div class="item">
+              <div class="name">优惠</div>
+              <div class="value">-￥{{discountsPrice}}</div>
+          </div>
+      </div>
+      <div class="row-total">
+          <div class="name">实际支付</div>
+          <div class="value">￥{{order.orderTotalPayment}}</div>
+        </div>
+    </div>
+</div>

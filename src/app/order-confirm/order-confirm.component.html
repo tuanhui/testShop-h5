@@ -1,0 +1,184 @@
+<div class="page">
+    <div class="product-list">
+    <div class="product" *ngFor="let product of mCart.products;let i=index">
+        <img class="pic" src="{{product.itemImg}}" />
+        <div class="info">
+            <div class="title">{{product.itemName}} x{{product.count}}</div>
+            <div class="intro">{{product.itemIntro}}</div>
+            <div class="price-count">
+                <div class="price">￥{{product.itemPrice}}</div>
+                <div class="count-container">
+                    <div class="count-item minus" (click)="minus(i)">-</div>
+                    <input type="number" 
+                           class="count-item count" 
+                           (ngModelChange)="onProductCountChange($event, i)" 
+                           [(ngModel)]="product.count" 
+                           style="-webkit-user-select: auto; user-select: auto;" #inputEle/>
+                    <div class="count-item plus" (click)="plus(i)">+</div>
+                  </div>
+            </div>
+        </div>
+    </div>
+    <div class="dispatching">
+        <div class="left">
+            <div class="name">配送方式</div>
+            <div class="type">小件</div>
+        </div>
+        <div class="right">顺丰快递（免运费)</div>
+    </div>
+    </div>
+    <div class="expressage">
+    <div class="item">
+        <div class="name">* 收件人</div>
+        <input type="text"
+               [(ngModel)]="mCart.owner" 
+               class="value" 
+               placeholder="请输入收件人姓名" 
+               style="-webkit-user-select: auto; user-select: auto;" #inputEle/>
+    </div>
+    <div class="item">
+        <div class="name">* 联系电话</div>
+        <input type="number"
+                class="value"
+                [(ngModel)]="mCart.phone" 
+                placeholder="请输入联系电话" 
+                style="-webkit-user-select: auto; user-select: auto;" #inputEle/>
+    </div>
+    <div class="item" (click)="chooseAddress($event)">
+        <div class="name">* 收件地址</div>
+        <input type="text" 
+               class="value" 
+               disabled="disabled"
+               [(ngModel)]="mCart.address" 
+               placeholder="请输入收货地址" 
+               style="-webkit-user-select: auto; user-select: auto;" #inputEle/>
+        <div class="item-arrow"></div>
+    </div>
+    <div class="item">
+        <div class="name hint">备注</div>
+        <input type="text" 
+               [(ngModel)]="mCart.remark" 
+               class="value" 
+               placeholder="请输入物流备注信息" 
+               style="-webkit-user-select: auto; user-select: auto;"  #inputEle/>
+    </div>
+    <div class="other" (click)="showInvoice()" *ngIf="! isShowInvoice">
+        <span class="value">补充选填信息</span>
+        <div class="arrow-bottom"></div>
+    </div>
+    <div class="item extend" *ngIf="isShowInvoice" (click)="tapInvoice()">
+        <div class="name hint">发票</div>
+        <div class="value hint">{{(!mCart.invoice || !mCart.invoice['type']) ? '不需要' : (mCart.invoice.type == 0 ? '个人发票':'企业发票')}}</div>
+        <div class="item-arrow"></div>
+    </div>
+    </div>
+    <div class="accounts">
+    <div class="item">
+        <span class="name">商品金额</span>
+        <span class="value">￥{{mCart.total_price + mCart.total_preferential}}</span>
+    </div>
+    <div class="item">
+        <span class="name">优惠</span>
+        <span class="value">-￥{{mCart.total_preferential}}</span>
+    </div>
+    <div class="total">
+        <span class="name">实付金额：</span>
+        <span class="value">￥{{mCart.total_price}}</span>
+    </div>
+    <div class="comit-btn" id="buy" (click)="toBuy()">支付</div>
+    </div>
+</div>
+<div class="toast" *ngIf="showToast">
+    <i class="icon"></i>
+    <span class="text">{{toastText}}</span>
+</div>
+
+<!-- 发票 start-->
+<div [ngClass]="{'invoice': true, 'hidden': !inputInvoice}">
+    <div class="head">
+        <div class="item">
+        <img (click)="changeOwner()" class="check" src="{{checkType==0 ? './assets/imgs/ic_check_checked.png': './assets/imgs/ic_check_normal.png'}}" />
+        <span class="text">个人发票</span>
+        </div>
+        <div class="item">
+        <img (click)="changeCompany()" class="check" src="{{checkType==1 ? './assets/imgs/ic_check_checked.png': './assets/imgs/ic_check_normal.png'}}" />
+        <span class="text">企业发票</span>
+        </div>
+    </div>
+    <div class="dispatching">
+        <div class="item">
+            <span class="name">配送方式</span>
+            <span class="value">随检测报告邮递</span>
+        </div>
+        <div class="item bottom">
+            <span class="name">普通纸质发票</span>
+            <span class="value">送货时间：等待检测结束</span>
+        </div>
+    </div>
+    <div class="company" [ngClass]="{'company': true, 'hidden': checkType != 1}">
+        <div class="item">
+            <span class="name">单位名称</span>
+            <input type="text" 
+                   class="value"  
+                   [(ngModel)]="compnayName" 
+                   placeholder="请填写单位名称" 
+                   style="-webkit-user-select: auto; user-select: auto;" #inputEle/>
+        </div>
+        <div class="item">
+            <span class="name">纳税人识别号</span>
+            <input type="text" 
+                   class="value" 
+                   [(ngModel)]="identifyCode" 
+                   placeholder="填写纳税人识别号" 
+                   style="-webkit-user-select: auto; user-select: auto;" #inputEle/>
+        </div>
+    </div>
+    <div class="confirm">
+        <div class="btn" (click)="confirm()">确定</div>
+    </div>
+</div>
+<!-- 发票 end -->
+
+<!-- 选择收货地址 start-->
+<div class="address-choose" *ngIf="showAddress">
+    <div class="item">
+        <span class="name">省份</span>
+        <select class="value" name="city" id="provinceSelect" value="-1" (change)="changeProvince($event.target.value)">
+            <option value="-1">请选择省份</option>
+            <option [value]="i" *ngFor="let province of provinces; let i=index">{{province.name}}</option>
+        </select>
+    </div>
+    <div class="item">
+        <span class="name">城市</span>
+        <select class="value" name="city" id="citySelect" value="-1" (change)="changeCity($event.target.value)">
+            <option value="-1">请选择城市</option>
+            <option [value]="i" *ngFor="let city of citys; let i=index">{{city.name}}</option>
+        </select>
+    </div>
+    <div class="item">
+        <span class="name">区县</span>
+        <select class="value" name="city" id="areasSelect" value="-1" (change)="changeArea($event.target.value)">
+            <option value="-1">请选择区县</option>
+            <option [value]="i" *ngFor="let area of areas; let i=index">{{area.name}}</option>
+        </select>
+    </div>
+    <div class="item">
+        <span class="name">街道</span>
+        <input type="text" class="value" placeholder="请输入街道及楼号(门牌号)" [(ngModel)]="streetName"  style="-webkit-user-select: auto; user-select: auto;" #inputEle>
+    </div>
+    <div class="confirm">
+        <div class="btn" (click)="confirmAddress($event)">确定</div>
+    </div>
+    <div class="data-list" *ngIf="showAddressFrame">
+        <div class="data-item" *ngFor="let item of addressList; let i = index">{{item.name}}</div>
+    </div>
+</div>
+<!-- 选择收货地址 end-->
+
+<div class="loading" *ngIf="showLoading">
+    <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+    </div>
+    <div class="text">{{loadingText}}</div>
+</div>

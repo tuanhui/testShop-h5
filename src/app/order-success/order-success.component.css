@@ -1,0 +1,21 @@
+.icon {
+    display: block;
+    width: 2rem;
+    height: 2rem; 
+    margin: 1.06rem auto 0.36rem auto;
+  } 
+  .title {
+    font-size: 0.40rem;
+    color: #000000;
+    line-height: 0.56rem;
+    display: block;
+    text-align: center;
+  }
+  .hint {
+    font-size: 0.28rem;
+    color: #888888;
+    line-height: 0.40rem;
+    text-align: center;
+    display: block;
+    margin: 0.24rpx 1.33rem 0.49rem 1.33rem;
+  }

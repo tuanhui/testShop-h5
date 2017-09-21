@@ -1,0 +1,52 @@
+<div class="cart-empty-container">
+  <div class="cart-empty" *ngIf="!carts || carts.length == 0">
+      <img class="icon" src="./assets/imgs/ic_cart_empty.png" alt="">
+      <div class="value">购物车是空的</div>
+  </div>
+</div>
+<div class="page" *ngIf="carts && carts.length > 0">
+  <div class="head-tool">
+    <img src="{{checkedCount == (carts && carts.length) && carts.length>0 ? './assets/imgs/ic_check_checked.png' : './assets/imgs/ic_check_normal.png'}}" 
+          class="icon check" (click)="carts && carts.length > 0 ? doCheckAll($event) : null"/>
+    <span class="text">全选</span>
+    <img src="./assets/imgs/ic_delete.png" class="icon delete" (click)="carts && carts.length > 0 ? delCarts($event) : null" />
+  </div>
+  <div class="cart-list" id="parent" *ngIf="carts && carts.length > 0">
+      <div class="cart-item" *ngFor="let cart of carts;let i=index">
+          <img class="check" (click)="changeCheck(i)" src="{{cart.checked? './assets/imgs/ic_check_checked.png': './assets/imgs/ic_check_normal.png'}}"/> 
+          <img class="pic" src="{{cart.itemImg}}" />
+          <div class="info">
+              <div class="name">{{cart.itemName}}</div>
+              <div class="intro">{{cart.itemIntro}}</div>
+              <div class="price">
+                  <div class="real">￥{{cart.itemPrice}}</div>
+                  <div class="prev" *ngIf="cart.itemOriginalPrice && cart.itemOriginalPrice != cart.itemPrice">
+                      <div class="title">原价</div>
+                      <div class="value">￥{{cart.itemOriginalPrice}}</div>
+                  </div>
+              </div>
+              <div class="count-container">
+                <div class="count-item minus" (click)="minus(i)">-</div>
+                <input type="number" 
+                       class="count-item count" 
+                       (ngModelChange)="onProductCountChange($event, i)" 
+                       [(ngModel)]="carts[i].count" 
+                       style="-webkit-user-select: auto; user-select: auto;" #inputEle/>
+                <div class="count-item plus" (click)="plus(i)">+</div>
+              </div>
+          </div>
+    </div>
+  </div>
+  <div class="tool-bar" *ngIf="carts && carts.length > 0">
+    <div class="price-name">共计</div>
+    <div class="price-value">￥{{totalPrice}}</div>
+    <button class="btn-pay" (click)="toPay($event)" [disabled]="totalPrice == 0">去支付</button>
+  </div>
+</div>
+<div class="toast" *ngIf="showLoading">
+  <div class="spinner">
+      <div class="double-bounce1"></div>
+      <div class="double-bounce2"></div>
+  </div>
+  <div class="text">{{loadingTitle}}</div>
+</div>

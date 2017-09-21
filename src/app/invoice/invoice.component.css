@@ -1,0 +1,125 @@
+ .page {
+    background-color: rgb(240, 240, 243);
+  }
+  .head {
+    display: flex;
+    flex-direction: row;
+    background-color: #fff;
+    padding: 0.29rem 0 0.29rem 0.21rem;
+  }
+  .head .item {
+    display: flex;
+    margin-right: 0.42rem;
+    flex-direction: row;
+  }
+  .head .item .check {
+    display: inline-block;
+    width: 0.44rem;
+    height: 0.44rem;
+  }
+  .head .item .text {
+    font-size: 0.28rem;
+    margin-left: 0.10rem;
+    color: #353535;
+    line-height: 0.44rem;
+  }
+  .dispatching {
+    padding: 0.38rem 0.28rem 0.34rem 0.40rem;
+    margin-top: 0.18rem;
+    background-color: #fff;
+  }
+  .dispatching .item {
+    display: flex;
+    flex-direction: row;
+    height: 0.33rem;
+    line-height: 0.33rem;
+  }
+  .dispatching .item.bottom {
+    margin-top: 0.12rem;
+  }
+  .dispatching .item .name {
+    flex: 1;
+    color: #353535;
+    font-size: 0.28rem;
+  }
+  .dispatching .item.bottom .name {
+     color: #A2A2A2;
+  }
+  .dispatching .item .value {
+    font-size: 0.28rem;
+    color: #A2A2A2;
+  }
+  .company .item{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    height: 1.20rem;
+    font-size: 0.28rem;
+    padding-left: 0.25rem;
+    border-top: 0.5px solid rgb(240, 240, 243);
+    background-color: #fff;
+  }
+  .company .item .name {
+    width: 1.21rem;
+    display: inline-block;
+    text-align: right;
+  }
+  .company .item .value {
+    margin-left: 0.47rem;
+    flex: 1;
+    color: #A2A2A2;
+  }
+  .holder-value {
+    color: #A2A2A2;
+  }
+  .confirm {
+    height: 1.46rem;
+    background-color: #fff;
+    margin-top: 0.5px;
+    padding: 0.67rem 0.25rem 0 0.25rem;
+  }
+  .confirm .btn {
+    background: #409CE0;
+    border-radius: 0.09rem;
+    height: 0.8rem;
+    line-height: 0.8rem;
+    margin: 0 0.25rem;
+    text-align: center;
+    color: #fff;
+    font-size: 0.30rem;
+  }
+  .confirm .btn:active {
+    opacity: .7;
+  }
+  /* toast */
+  .toast {
+    position: fixed;
+    z-index: 5000;
+    width: 2.4rem;
+    height: 2.4rem;
+    left: 50%;
+    font-size: 0.26rem;
+    color: #fff;
+    top: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: translate(-50%, -50%);
+    opacity: 0.7;
+    background: #111111;
+    border-radius: 0.10rem;
+  }
+  .toast .icon {
+    display: inline-block;
+    width: 0.986rem;
+    height: 0.706rem;
+    background-image: url('../../assets/imgs/ic_wron.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: center center;
+  }
+  .toast .text {
+    margin-top: 0.404rem;
+  }

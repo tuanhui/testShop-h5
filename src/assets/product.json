@@ -1,0 +1,85 @@
+{
+    "msg": "success",
+    "msgStr": [
+        "./assets/imgs/banner.jpg",
+        "./assets/imgs/banner1.jpg",
+        "./assets/imgs/banner2.jpg",
+        "./assets/imgs/banner3.jpg",
+        "./assets/imgs/banner4.jpg"
+    ],
+    "object": "20170910",
+    "rows": [
+        {
+            "count": 1,
+            "itemCode": "DX1413",
+            "itemId": "0X01",
+            "itemImg": "./assets/imgs/pic1.jpg",
+            "itemIntro": "了解自身基因，孕育健康生命",
+            "itemName": "安孕可-单基因遗传病携带者筛查",
+            "itemOriginalPrice": "3200",
+            "itemPrice": "1999",
+            "logisticsComName": null,
+            "logisticsCompany": null,
+            "sampleNums": null,
+            "trackingNum": null
+        },
+        {
+            "count": 1,
+            "itemCode": "DX0630",
+            "itemId": "0X02",
+            "itemImg": "./assets/imgs/pic2.jpg",
+            "itemIntro": "守护宝宝终生健康的礼物",
+            "itemName": "安馨可-新生儿及儿童基因检测",
+            "itemOriginalPrice": "3500",
+            "itemPrice": "2999",
+            "logisticsComName": null,
+            "logisticsCompany": null,
+            "sampleNums": null,
+            "trackingNum": null
+        },
+        {
+            "count": 1,
+            "itemCode": "DX1256",
+            "itemId": "0X03",
+            "itemImg": "./assets/imgs/pic4.jpg",
+            "itemIntro": "预知风险，防患未然",
+            "itemName": "遗传性肿瘤基因检测",
+            "itemOriginalPrice": "4800",
+            "itemPrice": "1999",
+            "logisticsComName": null,
+            "logisticsCompany": null,
+            "sampleNums": null,
+            "trackingNum": null
+        },
+        {
+            "count": 1,
+            "itemCode": "DX1327",
+            "itemId": "0X04",
+            "itemImg": "./assets/imgs/pic5.jpg",
+            "itemIntro": "远离猝死，“心“安理得",
+            "itemName": "遗传性心律失常基因检测",
+            "itemOriginalPrice": "6800",
+            "itemPrice": "2999",
+            "logisticsComName": null,
+            "logisticsCompany": null,
+            "sampleNums": null,
+            "trackingNum": null
+        },
+        {
+            "count": 1,
+            "itemCode": "SD0126",
+            "itemId": "0X05",
+            "itemImg": "./assets/imgs/pic3.jpg",
+            "itemIntro": "个人用药指导，远离药物不良反应",
+            "itemName": "安全用药基因检测",
+            "itemOriginalPrice": "990",
+            "itemPrice": "9901",
+            "logisticsComName": null,
+            "logisticsCompany": null,
+            "sampleNums": null,
+            "trackingNum": null
+        }
+    ],
+    "success": true,
+    "total": null
+}

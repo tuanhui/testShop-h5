@@ -1,0 +1,72 @@
+<div class="page">
+    <div class="page-container" *ngIf="products && products.length > 0">
+        <div class="content-container" style="width: 100%; height: 3.3rem;">
+            <swiper overlay-controls [config]="config" (indexChange)="onIndexChange($event)" style="width: 100%; height: 3.3rem;">
+                <div *ngFor="let slide of slides;let i = index" class="swiper-slide" style="width: 100%; height: 3.3rem;">
+                    <div class="swiper-img" [ngStyle]="{'background-image': 'url(' + slides[i] + ')','width': '100%','height': '100%','background-size':'100% 100%'}">
+                        <!-- <i [ngClass]="{'dot': true,'current': dotIndex == i}"></i> -->
+                    </div>
+                </div>
+            </swiper>
+            <div class="dot-container">
+            <i [ngClass]="{'dot': true, 'current': dotIndex==i}" *ngFor="let slide of slides;let i=index"></i> 
+            </div>
+        </div>
+    <div class="time-container"  *ngIf="false">
+        <div class="title">限时秒杀</div>
+        <div class="row">
+            <div class="column" *ngFor="let item of timeValues; let i=index">
+                <div class="time">{{item}}</div> 
+                <div class="status">{{i==1? '抢购中' : (i==0? '已结束' : '即将开始')}}</div>
+            </div>
+            
+        </div>
+    </div>
+    <div class="time-container pre" *ngIf="activePre">
+            9月9号 开始限时秒杀
+    </div>
+    <div class="time-container" *ngIf="!activePre && isActive">
+            <div class="title">9月9日限时秒杀</div>
+            <div class="row">
+                <div class="column-active">
+                    正在优惠:<span class="value">{{hours}}</span>小时<span class="value">{{minutes}}</span>分<span class="value">{{seconds}}</span>秒
+                </div>
+            </div>
+    </div>
+    <div class="product_list">
+        <div (click)="toDetail(i)" class="item" *ngFor="let product of products;let i = index">
+            <img class="item-l pic" src="{{product.itemImg}}" ng-cloak/>
+            <div class="item-r">
+                <div class="title">
+                    <div class="name">{{product.itemName}}</div>
+                    <div class="intro">{{product.itemIntro}}</div>
+                </div>
+                <div class="price">
+                    <div class="real">￥{{product.itemPrice}}</div>
+                    <div class="original" *ngIf="product.itemOriginalPrice > 0 && product.itemOriginalPrice != product.itemPrice">
+                        <div class="name">原价</div>
+                        <div class="value">￥{{product.itemOriginalPrice}}</div>
+                    </div>
+                </div>
+                <button class="btn buy">
+                    购买
+                </button>
+            </div>
+            </div>
+        </div>
+        <div class="concat-us">
+            <a href="tel:400-605-6655" class="content" bindtap='callUs' data-phone="4006056655">
+                <img class="icon" src='./assets/imgs/ic_call.png' ng-cloak/>
+                <div class="phone">联系客服：400-605-6655</div>
+            </a>
+        </div>
+    </div>    
+</div>
+
+<div class="toast" *ngIf="showLoading">
+    <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+    </div>
+    <div class="text">加载中...</div>
+</div>

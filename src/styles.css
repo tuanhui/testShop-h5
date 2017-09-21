@@ -1,0 +1,61 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+body {
+    font-family: "SF Pro SC", "HanHei SC", "SF Pro Text", "Myriad Set Pro", "PingFang SC",
+    "Helvetica Neue", "Helvetic", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", "Arial",
+    "Verdana", "sans-serif";
+}
+a:visited,
+a:focus,
+a:hover,
+a:active { 
+    background-color: transparent;
+}
+a {
+    text-decoration: none;
+    position: relative;
+}
+button {
+    outline: none;
+    border: 0;
+}
+html,body {
+    height: 100%;
+    width: 100%;
+}
+input {
+    display: inline-block;
+    border: none;
+    height: 0.33rem;
+    line-height: 0.33rem;
+    /* Remove First */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    /* Then Style */
+    padding: 0.1rem;
+    background: transparent;
+    outline: none; 
+}
+app-root {
+    height: 100%;
+    width: 100%;
+    /* overflow-x: hidden;
+    overflow-y: scroll; */
+    display: flex;
+    flex-direction: column;
+}
+::-webkit-scrollbar {
+    display: none;
+}
+.clearfix:after {
+    content: " ";
+    display: block;
+    clear: both;
+    height: 0;
+  }
+  .clearfix {
+    zoom: 1;
+  }

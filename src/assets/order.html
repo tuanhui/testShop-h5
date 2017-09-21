@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+ <head>
+ <title>微信支付</title> 
+ <meta charset="utf-8" /> 
+ <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+ <script>
+    function adapt(designWidth, rem2px){
+        var d = window.document.createElement('div');
+        d.style.width = '1rem';
+        d.style.display = "none";
+        var head = window.document.getElementsByTagName('head')[0];
+        head.appendChild(d);
+        var defaultFontSize = parseFloat(window.getComputedStyle(d, null).getPropertyValue('width'));
+        d.remove();
+        document.documentElement.style.fontSize = window.innerWidth / designWidth * rem2px / defaultFontSize * 100 + '%';
+        var st = document.createElement('style');
+        var portrait = "@media screen and (min-width: "+window.innerWidth+"px) {html{font-size:"+ ((window.innerWidth/(designWidth/rem2px)/defaultFontSize)*100) +"%;}}";
+        var landscape = "@media screen and (min-width: "+window.innerHeight+"px) {html{font-size:"+ ((window.innerHeight/(designWidth/rem2px)/defaultFontSize)*100) +"%;}}"
+        st.innerHTML = portrait + landscape;
+        head.appendChild(st);
+        return defaultFontSize
+    };
+     window.onload = function(){
+        adapt(750, 100);
+     }
+ </script>
+ <style>
+    /* toast */
+    .toast {
+        position: absolute;
+        z-index: 5000;
+        width: 2.4rem;
+        height: 2.4rem;
+        left: 50%;
+        font-size: 0.26rem;
+        color: #fff;
+        top: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transform: translate(-50%, -50%);
+        opacity: 0.7;
+        background: #111111;
+        border-radius: 0.10rem;
+    } 
+    .toast .text {
+        margin-top: 1rem;
+    }
+    .invoice {
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        z-index: 99;
+        background-color: #fff;
+    }
+    .spinner {
+        width: 0.40rem;
+        height: 0.40rem;
+        position: absolute;
+        left: 50%;
+        top: 30%;
+        transform: translateX(-50%);
+    }
+
+    .double-bounce1, .double-bounce2 {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background-color: #f2f2f2;
+        opacity: 0.6;
+        position: absolute;
+        top: 0;
+        left: 0;
+        -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+        animation: sk-bounce 2.0s infinite ease-in-out;
+    }
+
+    .double-bounce2 {
+        -webkit-animation-delay: -1.0s;
+        animation-delay: -1.0s;
+    }
+
+    @-webkit-keyframes sk-bounce {
+        0%, 100% { -webkit-transform: scale(0.0) }
+        50% { -webkit-transform: scale(1.0) }
+    }
+
+    @keyframes sk-bounce {
+        0%, 100% { 
+            transform: scale(0.0);
+            -webkit-transform: scale(0.0);
+        } 50% { 
+            transform: scale(1.0);
+            -webkit-transform: scale(1.0);
+        }
+    }
+    .toast.failed .icon {
+        display: inline-block;
+        width: 0.986rem;
+        height: 0.706rem;
+        background-image: url('./imgs/ic_wron.png');
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        background-position: center center;
+    }
+    .toast.failed .text {
+        margin-top: 0.404rem;
+    }
+    .toast.hidden {
+        display: none;
+    }
+    .toast.failed {
+        z-index: 9999;
+    }
+
+    #success .icon {
+        display: block;
+        width: 2.00rem;
+        height: 2.00rem; 
+        margin: 1.06rem auto 0.36rem auto;
+    }
+    #success .btn {
+        background: #409CE0;
+        border-radius: 0.09rem;
+        color: #fff;
+        width: 1.93rem;
+        height: 0.70rem;
+        display: block;
+        margin: 0 auto;
+        font-size: 0.28rem;
+        line-height: 0.70rem;
+        margin-top: 0.32rem;
+    }
+    #success .btn:active {
+        opacity: .7;
+    }
+    #success .title {
+        font-size: 0.40rem;
+        color: #000000;
+        line-height: 0.56rem;
+        display: block;
+        text-align: center;
+    }
+    #success .hint {
+        font-size: 0.28rem;
+        color: #888888;
+        line-height: 0.40rem;
+        text-align: center;
+        display: block;
+        margin: 0.24rem 1.51rem 0.49rem 1.51rem;
+    }
+    .success.hidden {
+        display: none;
+    }
+ </style>
+ </head> 
+ <body>
+    <input type="hidden" id="getBrandWCPayRequest"/>  
+    <div class="toast" id="loading">
+        <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+        <div class="text">请稍后...</div>
+    </div>
+    <div class="toast failed hidden" id="pay-failed">
+        <i class="icon"></i>
+        <span class="text">未支付</span>
+    </div>
+    <div id="success" class="success hidden">
+        <img class="icon" src="./imgs/ic_success.png"/>
+        <view class="title">购买成功</view>
+        <view class="hint">您的订单已完成支付，我们会尽快为您安排出库。</view>
+        <button class="btn" onclick='toOrderList()'>查看订单</button>
+    </div>
+ <script>
+    var time = new Date().valueOf();
+    var appid;
+    var nonceStr;
+    var _package;
+    var paySign;
+    var signType;
+    var timeStamp;
+     var requestData = sessionStorage.getItem("buy");
+     if(!requestData) {
+        window.location.href="/wechat/#/product";
+     } else {
+        document.getElementById("getBrandWCPayRequest").addEventListener("click",function(){
+            WeixinJSBridge.invoke("getBrandWCPayRequest",{
+            "appId" : appid, //公众号名称，由商户传入
+            "timeStamp" : timeStamp, //时间戳 这里随意使用了一个值
+            "nonceStr" : nonceStr, //随机串
+            "package" : _package, //扩展字段，由商户传入
+            "signType" : signType, //微信签名方式:sha1
+            "paySign" : paySign //微信签名
+            },
+            function(res){
+                sessionStorage.removeItem("buy"); 
+                if(res.err_msg == "get_brand_wcpay_request:ok" ) {
+                    //TODO 显示支付成功
+                    document.querySelector("#loading").classList.add("hidden");
+                    document.querySelector("#success").classList.remove("hidden");
+                } else {
+                   //TODO 提示未支付
+                   document.querySelector("#loading").classList.add("hidden");
+                   document.querySelector("#pay-failed").classList.remove("hidden");
+                   window.setTimeout(function(){
+                    window.location.href = "/wechat/#/order";
+                   }, 1500);
+                }
+            })
+        },!1);
+        $.post("/wechat/createWeChatOrder.action",{wechatOrderStr: requestData},
+        function(data){
+            if(data && data.success) {
+                appid = data.object.appId;
+                nonceStr = data.object.nonceStr;
+                _package = data.object.package;
+                paySign = data.object.paySign;
+                signType = data.object.signType;
+                timeStamp = data.object.timeStamp;
+                var mTime = new Date().valueOf();
+                if(mTime - time < 2000) {
+                   window.setTimeout(function(){
+                    document.getElementById("getBrandWCPayRequest").click(); 
+                   }, 2000-(mTime - time)); 
+                } else {
+                    document.getElementById("getBrandWCPayRequest").click();
+                }   
+            }
+        }); 
+
+        function toOrderList(){
+            window.location.href = "/wechat/#/order"; 
+        }
+    }
+ </script>
+</body>
+</html> 

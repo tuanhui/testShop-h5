@@ -1,0 +1,46 @@
+<div class="page">
+<div class="order-list">
+      <div class="order-item" *ngFor="let order of orderList"  (click)="order.orderStatus == 0 ? null : toOrderDetail(order.orderId)">
+          <div class="head">
+              <div class="head-l">
+                  <div class="item" *ngIf="order && order.orderStatus">
+                      <span class="name">状态：</span>
+                      <span class="value status">{{order.orderStatus == 0 ? '等待支付' : (order.orderStatus == 1 ? '待发货' : (order.orderStatus == 2 ? '已发货' : '已签收'))}}</span>
+                  </div>
+                  <div class="item">
+                      <span class="name">订单：</span>
+                      <span class="value">{{order.orderId}}</span>
+                  </div>
+              </div>
+              <div class="head-r">
+                  <button class="to-pay"  *ngIf="order && order.orderStatus == 0" (click)="toBuy(order.orderId)">去支付</button>
+                  <img class="arrow" src="./assets/imgs/ic_arrow_right.png" *ngIf="order && order.orderStatus > 0"/>
+              </div>
+          </div>
+          <div class="product-list" *ngIf="order.items">
+                  <div class="product-item" *ngFor="let product of order.items">
+                      <img class="pic" src="{{product.itemImg}}" />
+                      <div class="info">
+                          <div class="name">
+                              <div class="name-val">{{product.itemName}}</div>
+                              <div class="name-count">x{{product.count}}</div>
+                          </div>
+                          <div class="intro">{{product.itemIntro}}</div>
+                          <div class="price">
+                            <div class="name"></div>
+                            <div class="value">￥{{product.itemPrice * product.count}}</div> 
+                          </div>
+                      </div>
+                  </div>
+          </div>
+      </div>
+</div>
+</div>
+
+<div class="toast" *ngIf="showLoading">
+    <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+    </div>
+    <div class="text">加载中...</div>
+</div>
